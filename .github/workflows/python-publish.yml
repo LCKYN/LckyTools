@@ -3,7 +3,7 @@ name: Publish Python Package
 on:
   push:
     branches:
-      - main  # Set your default branch here
+      - main
 
 jobs:
   deploy:
@@ -13,7 +13,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10'  # Set the Python version you need
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
@@ -25,9 +25,11 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         HELLO: ${{ secrets.HELLO }}
+        TEST: ${{ variables.TEST }}
       run: |
         echo "Hello, world!"
         echo $HELLO
+        echo $TEST
         echo "test"
         python setup.py sdist bdist_wheel
         twine upload dist/*
