@@ -24,12 +24,6 @@ jobs:
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-        HELLO: ${{ secrets.HELLO }}
-        TEST: ${{ variables.TEST }}
       run: |
-        echo "Hello, world!"
-        echo $HELLO
-        echo $TEST
-        echo "test"
         python setup.py sdist bdist_wheel
         twine upload dist/*
