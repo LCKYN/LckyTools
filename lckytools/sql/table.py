@@ -24,6 +24,19 @@ def _get_table_name(table_name, schema_name=None, catalog_name=None):
     return full_table_name
 
 
+def select_data(table_name, columns, schema_name=None, catalog_name=None):
+    full_table_name = _get_table_name(table_name, schema_name, catalog_name)
+
+    if isinstance(columns, list):
+        columns_str = ", ".join(columns)
+    elif isinstance(columns, str):
+        columns_str = columns
+    else:
+        raise ValueError("Invalid columns format. Must be list or string.")
+
+    return f"SELECT {columns_str} FROM {full_table_name}"
+
+
 def create_table(
     table_name,
     schema_input,
