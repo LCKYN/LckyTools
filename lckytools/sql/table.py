@@ -11,7 +11,7 @@ TYPE_MAPPING = {
 }
 
 
-def create_table_sql(table_name, schema_input, ignore_if_exist=False):
+def create_table(table_name, schema_input, ignore_if_exist=False):
     if isinstance(schema_input, list):
         columns = [
             f"{col_name} {TYPE_MAPPING.get(data_type, data_type)}"
