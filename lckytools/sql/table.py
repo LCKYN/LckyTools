@@ -30,3 +30,12 @@ def create_table_sql(table_name, schema_input, ignore_if_exist=False):
         return f"CREATE TABLE IF NOT EXISTS {table_name} ({columns_str});"
     else:
         return f"CREATE TABLE {table_name} ({columns_str});"
+
+
+def drop_table(table_name, ignore_if_not_exist=False):
+    if ignore_if_not_exist:
+        sql = f"DROP TABLE IF EXISTS {table_name};"
+    else:
+        sql = f"DROP TABLE {table_name};"
+
+    return sql
