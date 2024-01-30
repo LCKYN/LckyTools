@@ -11,6 +11,19 @@ TYPE_MAPPING = {
 }
 
 
+def _get_table_name(table_name, schema_name=None, catalog_name=None):
+    # Construct full table name
+    full_table_name = table_name
+    if schema_name:
+        full_table_name = f"{schema_name}.{full_table_name}"
+    if catalog_name:
+        if not schema_name:
+            raise ValueError("schema_name must be specified if catalog_name is given.")
+        full_table_name = f"{catalog_name}.{full_table_name}"
+
+    return full_table_name
+
+
 def create_table(
     table_name,
     schema_input,
@@ -20,13 +33,7 @@ def create_table(
     with_option=None,
 ):
     # Construct full table name
-    full_table_name = table_name
-    if schema_name:
-        full_table_name = f"{schema_name}.{full_table_name}"
-    if catalog_name:
-        if not schema_name:
-            raise ValueError("schema_name must be specified if catalog_name is given.")
-        full_table_name = f"{catalog_name}.{full_table_name}"
+    full_table_name = _get_table_name(table_name, schema_name, catalog_name)
 
     # Validate and process schema_input
     if isinstance(schema_input, list):
@@ -56,16 +63,26 @@ def create_table(
     return sql_command
 
 
-def drop_table(table_name, ignore_if_not_exist=False):
-    if ignore_if_not_exist:
-        sql = f"DROP TABLE IF EXISTS {table_name}"
-    else:
-        sql = f"DROP TABLE {table_name}"
+def drop_table(
+    table_name,
+    schema_name=None,
+    catalog_name=None,
+    ignore_if_not_exist=False,
+):
+    full_table_name = _get_table_name(table_name, schema_name, catalog_name)
 
-    return sql
+    if ignore_if_not_exist:
+        return f"DROP TABLE IF EXISTS {full_table_name}"
+    return f"DROP TABLE {full_table_name}"
 
 
 def show_tables(schema_name, catalog_name=None):
     if catalog_name:
         return f"SHOW TABLES FROM {catalog_name}.{schema_name}"
     return f"SHOW TABLES FROM {schema_name}"
+
+
+def count_rows(table_name, schema_name=None, catalog_name=None):
+    full_table_name = _get_table_name(table_name, schema_name, catalog_name)
+
+    return f"SELECT COUNT(*) FROM {full_table_name}"
