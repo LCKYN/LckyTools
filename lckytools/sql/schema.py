@@ -5,11 +5,11 @@ def create_schema(catalog_name, schema_name, ignore_if_exist=False):
         return f"CREATE SCHEMA {catalog_name}.{schema_name}"
 
 
-def drop_schema(schema_name, ignore_if_not_exist=False, cascade=False):
+def drop_schema(catalog_name, schema_name, ignore_if_not_exist=False, cascade=False):
     if ignore_if_not_exist:
-        sql = f"DROP SCHEMA IF EXISTS {schema_name}"
+        sql = f"DROP SCHEMA IF EXISTS {catalog_name}.{schema_name}"
     else:
-        sql = f"DROP SCHEMA {schema_name}"
+        sql = f"DROP SCHEMA {catalog_name}.{schema_name}"
 
     if cascade:
         sql += " CASCADE"
