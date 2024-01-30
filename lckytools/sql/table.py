@@ -11,7 +11,23 @@ TYPE_MAPPING = {
 }
 
 
-def create_table(table_name, schema_input, ignore_if_exist=False):
+def create_table(
+    table_name,
+    schema_input,
+    ignore_if_exist=False,
+    schema_name=None,
+    catalog_name=None,
+):
+    # Construct full table name
+    full_table_name = table_name
+    if schema_name:
+        full_table_name = f"{schema_name}.{full_table_name}"
+    if catalog_name:
+        if schema_name:
+            raise ValueError("Cannot specify both schema_name and catalog_name")
+        full_table_name = f"{catalog_name}.{full_table_name}"
+
+    # Validate and process schema_input
     if isinstance(schema_input, list):
         columns = [
             f"{col_name} {TYPE_MAPPING.get(data_type, data_type)}"
@@ -25,11 +41,15 @@ def create_table(table_name, schema_input, ignore_if_exist=False):
     else:
         raise ValueError("Invalid schema_input format")
 
+    # Construct and return SQL statement
     columns_str = ", ".join(columns)
+
+    sql_command = "CREATE TABLE "
     if ignore_if_exist:
-        return f"CREATE TABLE IF NOT EXISTS {table_name} ({columns_str})"
-    else:
-        return f"CREATE TABLE {table_name} ({columns_str})"
+        sql_command += "IF NOT EXISTS "
+    sql_command += f"{full_table_name} ({columns_str})"
+
+    return sql_command
 
 
 def drop_table(table_name, ignore_if_not_exist=False):
