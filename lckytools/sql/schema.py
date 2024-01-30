@@ -17,3 +17,7 @@ def drop_schema(schema_name, ignore_if_not_exist=False, cascade=False):
         sql += " RESTRICT"
 
     return f"{sql};"
+
+
+def show_schemas(catalog_name):
+    return f"SHOW SCHEMAS FROM '{catalog_name}';"
