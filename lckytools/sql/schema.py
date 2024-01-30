@@ -20,4 +20,4 @@ def drop_schema(catalog_name, schema_name, ignore_if_not_exist=False, cascade=Fa
 
 
 def show_schemas(catalog_name):
-    return f"SHOW SCHEMAS FROM '{catalog_name}'"
+    return f"SHOW SCHEMAS FROM {catalog_name}"
