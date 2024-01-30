@@ -2,3 +2,4 @@ lckytools.egg-info
 dist
 build
 **/__pycache__/**
+.vscode/settings.json

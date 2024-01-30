@@ -27,11 +27,11 @@ keywords = [
 ]
 
 dependencies = [
-    "pandas"
+    "pandas",
+    "pytest",
 ]
 
 requires-python = ">=3.8"
 
 [project.urls]
 homepage = "https://github.com/LCKYN/LckyTools"
-
