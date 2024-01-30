@@ -17,6 +17,7 @@ def create_table(
     ignore_if_exist=False,
     schema_name=None,
     catalog_name=None,
+    with_option=None,
 ):
     # Construct full table name
     full_table_name = table_name
@@ -48,6 +49,9 @@ def create_table(
     if ignore_if_exist:
         sql_command += "IF NOT EXISTS "
     sql_command += f"{full_table_name} ({columns_str})"
+
+    if with_option:
+        sql_command += f" WITH ({with_option})"
 
     return sql_command
 
