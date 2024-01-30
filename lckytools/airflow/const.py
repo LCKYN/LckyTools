@@ -1,4 +1,4 @@
-default_args = {
+DEFAULT_ARGS = {
     "owner": "airflow",
     "depends_on_past": False,
     "email": ["test@email.com"],
@@ -8,7 +8,7 @@ default_args = {
 }
 
 
-lckyn_args = {
+LCKYN_ARGS = {
     "owner": "LCKYN",
     "depends_on_past": False,
     "email": ["t.pawarit@lckyn.com"],
@@ -17,7 +17,7 @@ lckyn_args = {
     "retries": 0,
 }
 
-work_args = {
+WORK_ARGS = {
     "owner": "T.Pawarit",
     "depends_on_past": False,
     "email": ["pawarit.t@avlgb.com"],
