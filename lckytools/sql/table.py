@@ -24,8 +24,8 @@ def create_table(
     if schema_name:
         full_table_name = f"{schema_name}.{full_table_name}"
     if catalog_name:
-        if schema_name:
-            raise ValueError("Cannot specify both schema_name and catalog_name")
+        if not schema_name:
+            raise ValueError("schema_name must be specified if catalog_name is given.")
         full_table_name = f"{catalog_name}.{full_table_name}"
 
     # Validate and process schema_input
