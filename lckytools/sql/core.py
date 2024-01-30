@@ -5,6 +5,9 @@ TYPE_MAPPING = {
     "int32": "INT",
     "int64": "INT",
     "string": "VARCHAR",
+    "float": "FLOAT",
+    "float32": "FLOAT",
+    "float64": "DOUBLE",
 }
 
 
