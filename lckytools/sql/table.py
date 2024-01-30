@@ -63,3 +63,9 @@ def drop_table(table_name, ignore_if_not_exist=False):
         sql = f"DROP TABLE {table_name}"
 
     return sql
+
+
+def show_tables(schema_name, catalog_name=None):
+    if catalog_name:
+        return f"SHOW TABLES FROM {catalog_name}.{schema_name}"
+    return f"SHOW TABLES FROM {schema_name}"
